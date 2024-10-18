@@ -1,0 +1,10 @@
+services:
+  postgres:
+    container_name: maven-01-pgserver
+    image: bitnami/postgresql:latest
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: maven
+      POSTGRES_PASSWORD: maven
+      POSTGRES_DB: maven-01-app
