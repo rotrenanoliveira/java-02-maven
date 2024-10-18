@@ -14,7 +14,7 @@ public class UsersRepository {
 
     public void create(User user) {
         try {
-            String insertSQL = "INSERT INTO public.tab_cadastros (nome, idade) VALUES(?,?);";
+            String insertSQL = "INSERT INTO public.users (name, age) VALUES(?,?);";
 
             PreparedStatement pst = connection.prepareStatement(insertSQL);
             pst.setString(1, user.getName());
@@ -29,7 +29,7 @@ public class UsersRepository {
 
     public void save(User user) {
         try {
-            String updateSQL = "UPDATE public.tab_cadastros SET nome=?, idade=? WHERE id=?;";
+            String updateSQL = "UPDATE public.users SET name = ?, age = ? WHERE id=?;";
 
             PreparedStatement pst = connection.prepareStatement(updateSQL);
             pst.setString(1, user.getName());
@@ -45,7 +45,7 @@ public class UsersRepository {
 
     public void delete(int id) {
         try {
-            String deleteSQL = "DELETE FROM public.tab_cadastros WHERE id=?;";
+            String deleteSQL = "DELETE FROM public.users WHERE id = ?;";
 
             PreparedStatement pst = connection.prepareStatement(deleteSQL);
             pst.setInt(1, id);
@@ -61,14 +61,14 @@ public class UsersRepository {
         List<User> users = new ArrayList<User>();
 
         try {
-            String selectSQL = "SELECT * FROM public.tab_cadastros;";
+            String selectSQL = "SELECT * FROM public.users;";
 
             PreparedStatement statement = connection.prepareStatement(selectSQL);
             ResultSet result = statement.executeQuery();
 
             while (result.next()) {
-                String columnName = result.getString("nome");
-                int columnAge = result.getInt("idade");
+                String columnName = result.getString("name");
+                int columnAge = result.getInt("age");
                 int columnId = result.getInt("id");
                 User user = new User();
                 user.setId(columnId);
@@ -88,15 +88,15 @@ public class UsersRepository {
         User user = null;
 
         try {
-            String selectSQL = "SELECT * FROM public.tab_cadastros WHERE id = ?;";
+            String selectSQL = "SELECT * FROM public.users WHERE id = ?;";
 
             PreparedStatement statement = connection.prepareStatement(selectSQL);
             statement.setInt(1, userId);
             ResultSet result = statement.executeQuery();
 
             if (result.next()) {
-                String columnName = result.getString("nome");
-                int columnAge = result.getInt("idade");
+                String columnName = result.getString("name");
+                int columnAge = result.getInt("age");
                 int columnId = result.getInt("id");
 
                 user = new User();
